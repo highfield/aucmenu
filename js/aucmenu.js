@@ -32,9 +32,19 @@
         var me = {};
         var options = $.extend(true, {}, $.fn[NAME].options, opts);
 
+        //array for controllers
         var levels = [];
         var items = [];
 
+
+        function indexOfItem(id) {
+            var i = items.length;
+            while (--i >= 0 && items[i].model.id !== id);
+            return i;
+        }
+
+
+        //path controller
         var path = (function () {
             var p = {}, a = [], z = -1, open = false;
 
@@ -57,7 +67,7 @@
             }
 
             p.set = function (v) {
-                //
+                //anyone needs?
             }
 
             p.clear = function () {
@@ -68,9 +78,20 @@
 
             p.isOpen = function () { return open; }
 
-            p.open = function () {
+            p.open = function (id) {
                 if (open) return;
                 open = true;
+                if (id != null) {
+                    a.length = 0;
+                    z = -1;
+                    var ix = indexOfItem(id);
+                    while (ix >= 0) {
+                        var ci = items[ix];
+                        p.push({ ii: ix, il: ci.level_ix });
+                        ix = ci.parent_ix;
+                    }
+                    a.reverse();
+                }
                 if (a.length === 0) {
                     a.push({ il: 0, ii: -1 });
                     z = 0;
@@ -114,7 +135,8 @@
         })();
 
 
-        function scan(model, parent_level_ix) {
+        //model scanner
+        function scan(model, parent_level_ix, parent_item_ix) {
             if (!model.items || !model.items.length) {
                 if (parent_level_ix >= 0) return -1;
             }
@@ -152,7 +174,7 @@
                     var item_ix = items.length;
                     var li = $('<li>').data('ii', item_ix).appendTo(ul);
 
-                    var citem = CtlItem(li, level_ix);
+                    var citem = CtlItem(li, child, level_ix, parent_item_ix);
                     items.push(citem);
 
                     var div = $('<div>').appendTo(li);
@@ -169,7 +191,7 @@
                         margin: '0px 15px'
                     }).appendTo(div);
 
-                    var child_level_ix = scan(child, level_ix);
+                    var child_level_ix = scan(child, level_ix, item_ix);
                     if (child_level_ix >= 0) {
                         levels[level_ix].children.push(child_level_ix);
                         citem.L = child_level_ix;
@@ -186,7 +208,7 @@
                             path.push({ il: ci.L, ii: -1 });
                         }
                         else {
-                            //TODO azione foglia
+                            container.trigger('selected', { item: ci });
                         }
                         path.update();
                     });
@@ -205,11 +227,14 @@
         }
 
 
-        function CtlItem(elem, level_ix) {
+        //item controller
+        function CtlItem(elem, model, level_ix, parent_ix) {
             var state = 0;
             var c = {
                 elem: elem,
-                level_ix: level_ix
+                model: model,
+                level_ix: level_ix,
+                parent_ix: parent_ix
             };
 
             c.reset = function () {
@@ -233,6 +258,7 @@
         }
 
 
+        //level controller
         function CtlLevel(elem, parent_ix) {
             var state = 0, nesting = 0;
             var c = {
@@ -287,7 +313,7 @@
                     container.css('transform', 'translate3d(' + options.width + 'px,0,0)');
                     break;
             }
-            scan(options.menu, -1);
+            scan(options.menu, -1, -1);
             me.close();
         }
 
@@ -300,8 +326,8 @@
             path.clear();
         }
 
-        me.open = function () {
-            path.open();
+        me.open = function (id) {
+            path.open(id);
         }
 
 
@@ -335,7 +361,7 @@
 
 
     $.fn[NAME].options = {
-        width: 300,
+        width: 280,
         type: 'overlap', // overlap || cover
         levelSpacing: 40,
         backLabel: 'Back'

@@ -26,7 +26,6 @@
 }
 
     /* overlays for pusher and for level that gets covered */
-    /*.mp-pusher::after,*/
     .mp-level::after,
     .mp-level::before {
         content: '';
@@ -38,10 +37,8 @@
         opacity: 0;
     }
 
-    /*.mp-pusher::after,*/
     .mp-level::after {
         background: rgba(0,0,0,0.3);
-        -webkit-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
         transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
     }
 
@@ -49,12 +46,10 @@
         z-index: -1;
     }
 
-    /*.mp-pusher.mp-pushed::after,*/
     .mp-level.mp-level-overlay::after {
         width: 100%;
         height: 100%;
         opacity: 1;
-        -webkit-transition: opacity 0.3s;
         transition: opacity 0.3s;
     }
 
@@ -70,39 +65,16 @@
             opacity: 1;
         }
 
-/*.mp-pusher,*/
 .mp-level {
-    -webkit-transition: -webkit-transform 0.5s;
     transition: transform 0.5s;
 }
+
 
 /* overlap */
 .mp-overlap .mp-level.mp-level-open {
     box-shadow: 3px 0px 8px 0px rgba(0,0,0,0.75);
-    /*-webkit-transform: translate3d(-40px, 0, 0);
-    transform: translate3d(-40px, 0, 0);*/
 }
 
-/* First level */
-/*.mp-menu > .mp-level,
-.mp-menu > .mp-level.mp-level-open,
-.mp-menu.mp-overlap > .mp-level,
-.mp-menu.mp-overlap > .mp-level.mp-level-open {
-    box-shadow: none;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-}*/
-
-/* cover */
-/*.mp-cover .mp-level.mp-level-open {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-}*/
-
-/*.mp-cover .mp-level.mp-level-open > ul > li > .mp-level:not(.mp-level-open) {
-        -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-    }*/
 
 /* content style */
 .mp-menu ul {
@@ -132,9 +104,6 @@
     font-size: 75%;
     line-height: 1.8;
     opacity: 0;
-    /*-webkit-transform: translateX(-100%);
-    transform: translateX(-100%);*/
-    /*-webkit-transition: opacity 0.3s, -webkit-transform 0.1s 0.3s;*/
     transition: opacity 0.3s, transform 0.1s 0.3s;
 }
 
@@ -147,9 +116,6 @@
 
 .mp-overlap .mp-level.mp-level-overlay > h2::before {
     opacity: 1;
-    /*-webkit-transform: translateX(0);
-    transform: translateX(0);*/
-    /*-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;*/
     transition: transform 0.3s, opacity 0.3s;
 }
 
@@ -162,9 +128,7 @@
     height: 60px;
     outline: none;
     box-shadow: inset 0 -1px rgba(0,0,0,0.2);
-    /*text-shadow: 0 0 1px rgba(255,255,255,0.1);*/
     font-size: 1.4em;
-    /*-webkit-transition: background 0.3s, box-shadow 0.3s;*/
     transition: background 0.3s, box-shadow 0.3s;
 }
 
@@ -174,6 +138,9 @@
 
 .mp-menu ul li {
     cursor: pointer;
+    overflow: hidden;
+    /*float: left;*/
+    /*width: 100px;*/
 }
 
     .mp-menu ul li::before {
@@ -198,17 +165,6 @@
     background: cornflowerblue;
 }
 
-/*.mp-menu .mp-level.mp-level-overlay > ul > li > div,
-.mp-level.mp-level-overlay > ul > li:first-child > div {
-    box-shadow: inset 0 -1px rgba(0,0,0,0);
-}*/
-
-/*.mp-level > ul > li:first-child > div:hover,
-.mp-level.mp-level-overlay > ul > li:first-child > div {
-    box-shadow: inset 0 -1px rgba(0,0,0,0), inset 0 1px rgba(0,0,0,0);
-}*/
-/* seems like Chrome 34.0.1847.131 needs the second shadow otherwise the transition breaks */
-
 .mp-back {
     position: relative;
     display: flex;
@@ -224,7 +180,6 @@
     letter-spacing: 1px;
     font-weight: 700;
     font-size: 0.8em;
-    /*-webkit-transition: background 0.3s;*/
     transition: background 0.3s;
     cursor: pointer;
 }
@@ -233,14 +188,6 @@
     margin: 0px 10px;
 }
 
-/*.mp-back::after {
-        content: "\e037";
-        position: absolute;
-        right: 10px;
-        color: rgba(0,0,0,0.3);
-        font-size: 1.3em;
-        font-family: 'linecons';
-    }*/
 
 .mp-menu .mp-level.mp-level-overlay > .mp-back,
 .mp-menu .mp-level.mp-level-overlay > .mp-back::after {
@@ -248,20 +195,3 @@
     box-shadow: none;
     color: transparent;
 }
-
-/* Fallback example for browsers that don't support 3D transforms (and no JS fallback) */
-/* We'll show the first level only */
-/*.no-csstransforms3d .mp-pusher,
-.no-js .mp-pusher {
-    padding-left: 300px;
-}*/
-
-/*.no-csstransforms3d .mp-menu .mp-level,
-.no-js .mp-menu .mp-level {
-    display: none;
-}*/
-
-/*.no-csstransforms3d .mp-menu > .mp-level,
-.no-js .mp-menu > .mp-level {
-    display: block;
-}*/
