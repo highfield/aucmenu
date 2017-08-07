@@ -9,7 +9,7 @@
     <meta name="keywords" content="multi-level, menu, navigation, off-canvas, off-screen, mobile, levels, nested, transform" />
     <meta name="author" content="Codrops" />
     <meta name="author" content="Mario Vernari" />
-    <link rel="shortcut icon" href="../favicon.ico">
+    <!--<link rel="shortcut icon" href="../favicon.ico">-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <!--<link rel="stylesheet" type="text/css" href="css/icons.css" />-->
@@ -64,7 +64,7 @@
 
 
     <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/mlpushmenu.js"></script>
+    <script src="js/aucmenu.js"></script>
     <script>
         $(function () {
             var menu = {
@@ -185,8 +185,8 @@
                 dock: 'left'
             };
 
-            $('#mp-menu-left').auPushMenu(options_left);
-            var api_left = $('#mp-menu-left').data('auPushMenu');
+            $('#mp-menu-left').auCMenu(options_left);
+            var api_left = $('#mp-menu-left').data('auCMenu');
 
             $('#trigger-left').on('click', function (e) {
                 e.stopPropagation();
@@ -202,8 +202,8 @@
                 dock: 'right'
             };
 
-            $('#mp-menu-right').auPushMenu(options_right);
-            var api_right = $('#mp-menu-right').data('auPushMenu');
+            $('#mp-menu-right').auCMenu(options_right);
+            var api_right = $('#mp-menu-right').data('auCMenu');
 
             $('#trigger-right').on('click', function (e) {
                 e.stopPropagation();
