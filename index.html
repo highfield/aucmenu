@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>Multi-Level Menu</title>
     <meta name="description" content="Multi-Level Menu: Off-screen navigation with multiple levels" />
     <meta name="keywords" content="multi-level, menu, navigation, off-canvas, off-screen, mobile, levels, nested, transform" />
@@ -18,39 +19,34 @@
 <body>
     <nav class="navbar">
         <div style="position:absolute; left:20px; top:12px">
-            <a href="#" id="trigger-left" class="menu-trigger">Open Menu</a>
+            <a href="#" id="trigger-left">Open Menu</a>
         </div>
         <div style="position:absolute; right:20px; top:12px">
-            <a href="#" id="trigger-right" class="menu-trigger">Open/Close Menu</a>
+            <a href="#" id="trigger-right">Open/Close Menu</a>
         </div>
     </nav>
     <div class="container">
-        <div class="zmp-pusher" id="zmp-pusher">
-
-            <header class="codrops-header">
-                <h1>Multi-Level Menu</h1>
-                <div>Off-screen navigation with multiple levels</div>
-            </header>
-            <div class="content clearfix">
-                <div class="block block-60">
-                    <p><strong>Demo:</strong> Overlapping levels with back links</p>
-                    <p>This menu will open by pushing the website content to the right. It has multi-level functionality, allowing endless nesting of navigation elements.</p>
-                    <p>The next level can optionally overlap or cover the previous one.</p>
-                </div>
-                <div class="block block-60">
-                    <button id="btn-reset">Reset</button>
-                    <button id="btn-open-item">Open "Scientific American"</button>
-                    <button>Open item</button>
-                </div>
-                <div class="block block-60">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sagittis, diam quis hendrerit bibendum, augue massa tempor neque, et dapibus risus ligula tempor nulla. Donec accumsan tortor eget lorem venenatis, ac tincidunt eros volutpat. Mauris tempus libero metus, in posuere velit scelerisque vel. Donec dapibus dolor eu tortor interdum tincidunt. Donec dignissim nisl eleifend mauris efficitur dignissim. Nullam bibendum felis a nibh maximus efficitur. Donec commodo est at maximus facilisis. Sed risus dui, ultricies non accumsan sit amet, volutpat sit amet dui. Sed blandit tempus feugiat. Aliquam quis felis at eros vehicula viverra in eget ante. Phasellus tempus blandit turpis, sed condimentum nisl rutrum eget. Pellentesque suscipit sem accumsan nunc dapibus, id volutpat eros molestie. Proin dolor nisi, sodales quis tempor sagittis, sodales non lorem. Sed porta et nisl vel scelerisque.</p>
-                    <p>Maecenas dapibus mattis sem. Nam suscipit urna nec massa maximus gravida. Aliquam nec arcu scelerisque, elementum orci at, dictum augue. Sed quis ex risus. Integer nec imperdiet nisi. Cras non pretium metus. In feugiat metus a ante tincidunt euismod. Nunc leo nisi, pellentesque non sem ut, posuere vulputate ante. Morbi elementum vel libero in egestas. Pellentesque convallis ullamcorper mi ut sagittis. Vivamus ut facilisis sapien, vel consequat ligula. Vestibulum quis vehicula dui, vitae finibus ante. Ut elementum suscipit nisl eu vestibulum. Integer semper aliquam metus.</p>
-                    <p>Proin sapien ligula, pharetra id magna sit amet, bibendum fermentum tortor. Donec ultricies ex vel iaculis mollis. Duis scelerisque tellus purus, eu eleifend arcu scelerisque ac. Curabitur varius velit nunc, sit amet sollicitudin nibh rhoncus a. Nam eu cursus sem, at tempor eros. Sed sodales, ante eu sagittis interdum, tortor dui feugiat diam, eu tempor mi justo sed risus. Ut non vulputate ligula, eu fermentum felis. Duis quis leo vel nulla ullamcorper viverra ut in leo. Suspendisse scelerisque, lorem commodo convallis consequat, ex nulla maximus nunc, ac faucibus augue risus quis arcu. Fusce porttitor, augue non malesuada consequat, odio tellus viverra diam, ut tempus mi tortor ac felis. Proin a pretium nibh, in volutpat ligula. Mauris non diam massa.</p>
-                    <p>Maecenas hendrerit tincidunt ultrices. Sed vel sem velit. Cras felis purus, commodo a velit sit amet, fringilla blandit quam. Mauris ac cursus libero. Proin volutpat ut justo ut porta. Nulla lacus arcu, hendrerit sit amet nisi sed, dictum fermentum erat. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-                    <p>Donec nisl quam, efficitur non neque nec, vulputate rutrum lorem. Maecenas non finibus lectus. Nullam eu odio non leo mollis gravida. Aenean massa dolor, varius a hendrerit eu, molestie eu diam. Morbi lacus ipsum, ultrices et massa quis, viverra rutrum urna. Sed vehicula convallis massa, ac maximus diam maximus in. Aliquam non ultrices orci. Phasellus erat ante, iaculis a iaculis eget, porttitor ut nibh. Sed varius hendrerit semper. Phasellus cursus posuere semper. Curabitur pulvinar eget metus eget ultricies.</p>
-                </div>
+        <header class="codrops-header">
+            <h1>Multi-Level Menu</h1>
+            <div>Off-screen navigation with multiple levels</div>
+        </header>
+        <div class="content clearfix">
+            <div class="block block-60">
+                <p><strong>Demo:</strong> Overlapping levels with back links</p>
+                <p>This menu will open by pushing the website content to the right. It has multi-level functionality, allowing endless nesting of navigation elements.</p>
+                <p>The next level can optionally overlap or cover the previous one.</p>
             </div>
-
+            <div class="block block-60">
+                <button id="btn-reset">Reset</button>
+                <button id="btn-open-item">Open "Scientific American"</button>
+            </div>
+            <div class="block block-60">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sagittis, diam quis hendrerit bibendum, augue massa tempor neque, et dapibus risus ligula tempor nulla. Donec accumsan tortor eget lorem venenatis, ac tincidunt eros volutpat. Mauris tempus libero metus, in posuere velit scelerisque vel. Donec dapibus dolor eu tortor interdum tincidunt. Donec dignissim nisl eleifend mauris efficitur dignissim. Nullam bibendum felis a nibh maximus efficitur. Donec commodo est at maximus facilisis. Sed risus dui, ultricies non accumsan sit amet, volutpat sit amet dui. Sed blandit tempus feugiat. Aliquam quis felis at eros vehicula viverra in eget ante. Phasellus tempus blandit turpis, sed condimentum nisl rutrum eget. Pellentesque suscipit sem accumsan nunc dapibus, id volutpat eros molestie. Proin dolor nisi, sodales quis tempor sagittis, sodales non lorem. Sed porta et nisl vel scelerisque.</p>
+                <p>Maecenas dapibus mattis sem. Nam suscipit urna nec massa maximus gravida. Aliquam nec arcu scelerisque, elementum orci at, dictum augue. Sed quis ex risus. Integer nec imperdiet nisi. Cras non pretium metus. In feugiat metus a ante tincidunt euismod. Nunc leo nisi, pellentesque non sem ut, posuere vulputate ante. Morbi elementum vel libero in egestas. Pellentesque convallis ullamcorper mi ut sagittis. Vivamus ut facilisis sapien, vel consequat ligula. Vestibulum quis vehicula dui, vitae finibus ante. Ut elementum suscipit nisl eu vestibulum. Integer semper aliquam metus.</p>
+                <p>Proin sapien ligula, pharetra id magna sit amet, bibendum fermentum tortor. Donec ultricies ex vel iaculis mollis. Duis scelerisque tellus purus, eu eleifend arcu scelerisque ac. Curabitur varius velit nunc, sit amet sollicitudin nibh rhoncus a. Nam eu cursus sem, at tempor eros. Sed sodales, ante eu sagittis interdum, tortor dui feugiat diam, eu tempor mi justo sed risus. Ut non vulputate ligula, eu fermentum felis. Duis quis leo vel nulla ullamcorper viverra ut in leo. Suspendisse scelerisque, lorem commodo convallis consequat, ex nulla maximus nunc, ac faucibus augue risus quis arcu. Fusce porttitor, augue non malesuada consequat, odio tellus viverra diam, ut tempus mi tortor ac felis. Proin a pretium nibh, in volutpat ligula. Mauris non diam massa.</p>
+                <p>Maecenas hendrerit tincidunt ultrices. Sed vel sem velit. Cras felis purus, commodo a velit sit amet, fringilla blandit quam. Mauris ac cursus libero. Proin volutpat ut justo ut porta. Nulla lacus arcu, hendrerit sit amet nisi sed, dictum fermentum erat. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                <p>Donec nisl quam, efficitur non neque nec, vulputate rutrum lorem. Maecenas non finibus lectus. Nullam eu odio non leo mollis gravida. Aenean massa dolor, varius a hendrerit eu, molestie eu diam. Morbi lacus ipsum, ultrices et massa quis, viverra rutrum urna. Sed vehicula convallis massa, ac maximus diam maximus in. Aliquam non ultrices orci. Phasellus erat ante, iaculis a iaculis eget, porttitor ut nibh. Sed varius hendrerit semper. Phasellus cursus posuere semper. Curabitur pulvinar eget metus eget ultricies.</p>
+            </div>
         </div>
     </div>
 
@@ -79,31 +75,31 @@
                                 "label": "Mobile Phones",
                                 "icon": "fa fa-mobile-phone",
                                 "items": [
-                                    { "label": "Super Smart Phone" },
-                                    { "label": "Thin Magic Mobile" },
-                                    { "label": "Performance Crusher" },
-                                    { "label": "Futuristic Experience" }
+                                    { "label": "Super Smart Phone", "icon": "fa fa-audio-description" },
+                                    { "label": "Thin Magic Mobile", "icon": "fa fa-sign-language" },
+                                    { "label": "Performance Crusher", "icon": "fa fa-volume-control-phone" },
+                                    { "label": "Futuristic Experience", "icon": "fa fa-tty" }
                                 ]
                             },
                             {
                                 "label": "Televisions",
                                 "icon": "fa fa-tv",
                                 "items": [
-                                    { "label": "Flat Superscreen" },
-                                    { "label": "Gigantic LED" },
-                                    { "label": "Power Eater" },
-                                    { "label": "3D Experience" },
-                                    { "label": "Classic Comfort" }
+                                    { "label": "Flat Superscreen", "icon": "fa fa-ambulance" },
+                                    { "label": "Gigantic LED", "icon": "fa fa-bus" },
+                                    { "label": "Power Eater", "icon": "fa fa-plane" },
+                                    { "label": "3D Experience", "icon": "fa fa-rocket" },
+                                    { "label": "Classic Comfort", "icon": "fa fa-truck" }
                                 ]
                             },
                             {
                                 "label": "Cameras",
                                 "icon": "fa fa-camera",
                                 "items": [
-                                    { "label": "Smart Shot" },
-                                    { "label": "Power Shooter" },
-                                    { "label": "Easy Photo Maker" },
-                                    { "label": "Super Pixel" }
+                                    { "label": "Smart Shot", "icon": "fa fa-dollar" },
+                                    { "label": "Power Shooter", "icon": "fa fa-euro" },
+                                    { "label": "Easy Photo Maker", "icon": "fa fa-gg" },
+                                    { "label": "Super Pixel", "icon": "fa fa-money" }
                                 ]
                             }
                         ]
@@ -112,12 +108,12 @@
                         "label": "Magazines",
                         "icon": "fa fa-newspaper-o",
                         "items": [
-                            { "label": "National Geographic" },
-                            { "label": "Scientific American", id: "sci_am" },
-                            { "label": "The Spectator" },
-                            { "label": "The Rambler" },
-                            { "label": "Physics World" },
-                            { "label": "The New Scientist" }
+                            { "label": "National Geographic", "icon": "fa fa-bold" },
+                            { "label": "Scientific American", "icon": "fa fa-cut", id: "sci_am" },
+                            { "label": "The Spectator", "icon": "fa fa-eraser" },
+                            { "label": "The Rambler", "icon": "fa fa-link" },
+                            { "label": "Physics World", "icon": "fa fa-repeat" },
+                            { "label": "The New Scientist", "icon": "fa fa-th" }
                         ]
                     },
                     {
@@ -132,21 +128,21 @@
                                         "label": "Women's Clothing",
                                         "icon": "fa fa-female",
                                         "items": [
-                                            { "label": "Tops" },
-                                            { "label": "Dresses" },
-                                            { "label": "Trousers" },
-                                            { "label": "Shoes" },
-                                            { "label": "Sale" }
+                                            { "label": "Tops", "icon": "fa fa-wifi" },
+                                            { "label": "Dresses", "icon": "fa fa-user" },
+                                            { "label": "Trousers", "icon": "fa fa-tree" },
+                                            { "label": "Shoes", "icon": "fa fa-trash" },
+                                            { "label": "Sale", "icon": "fa fa-thumbs-up" }
                                         ]
                                     },
                                     {
                                         "label": "Men's Clothing",
                                         "icon": "fa fa-male",
                                         "items": [
-                                            { "label": "Shirts" },
-                                            { "label": "Trousers" },
-                                            { "label": "Shoes" },
-                                            { "label": "Sale" }
+                                            { "label": "Shirts", "icon": "fa fa-star" },
+                                            { "label": "Trousers", "icon": "fa fa-signal" },
+                                            { "label": "Shoes", "icon": "fa fa-shield" },
+                                            { "label": "Sale", "icon": "fa fa-road" }
                                         ]
                                     }
                                 ]
@@ -157,7 +153,39 @@
                             },
                             {
                                 "label": "Music",
-                                "icon": "fa fa-music"
+                                "icon": "fa fa-music",
+                                "items": [
+                                    { "label": "Ray Conniff", "icon": "fa fa-hand-lizard-o" },
+                                    { "label": "Perez Prado", "icon": "fa fa-hand-o-down" },
+                                    { "label": "Glenn Miller", "icon": "fa fa-hand-o-left" },
+                                    { "label": "Percy Faith", "icon": "fa fa-hand-o-right" },
+                                    { "label": "Carlos Santana", "icon": "fa fa-hand-o-up" },
+                                    { "label": "Burt Bacharach", "icon": "fa fa-hand-paper-o" },
+                                    { "label": "Laurie Johnson", "icon": "fa fa-hand-peace-o" },
+                                    { "label": "Tears for fears", "icon": "fa fa-hand-pointer-o" },
+                                    { "label": "Inxs", "icon": "fa fa-hand-rock-o" },
+                                    { "label": "Edoardo Bennato", "icon": "fa fa-hand-scissors-o" },
+                                    { "label": "Claudio Baglioni", "icon": "fa fa-hand-spock-o" },
+                                    { "label": "James Last", "icon": "fa fa-thumbs-o-down" },
+                                    { "label": "Duran Duran", "icon": "fa fa-thumbs-o-up" },
+                                    { "label": "W. A.Mozart", "icon": "fa fa-ambulance" },
+                                    { "label": "Charles Aznavour", "icon": "fa fa-bicycle" },
+                                    { "label": "Mina", "icon": "fa fa-bus" },
+                                    { "label": "The Beatles", "icon": "fa fa-car" },
+                                    { "label": "Spandau Ballet", "icon": "fa fa-fighter-jet" },
+                                    { "label": "Bocelli", "icon": "fa fa-motorcycle" },
+                                    { "label": "Giacomo Puccini", "icon": "fa fa-plane" },
+                                    { "label": "Madonna", "icon": "fa fa-rocket" },
+                                    { "label": "L. Van Beethoven", "icon": "fa fa-ship" },
+                                    { "label": "The Cars", "icon": "fa fa-space-shuttle" },
+                                    { "label": "Stevie Wonder", "icon": "fa fa-subway" },
+                                    { "label": "Matia Bazar", "icon": "fa fa-taxi" },
+                                    { "label": "Rolling Stones", "icon": "fa fa-train" },
+                                    { "label": "Bee Gees", "icon": "fa fa-truck" },
+                                    { "label": "Giuseppe Verdi", "icon": "fa fa-wheelchair" },
+                                    { "label": "Ramones", "icon": "fa fa-mars" },
+                                    { "label": "Tubeway army", "icon": "fa fa-venus" }
+                                ]
                             },
                             {
                                 "label": "Grocery",
@@ -167,11 +195,35 @@
                     },
                     {
                         "label": "Collections",
-                        "icon": "fa fa-photo-o"
+                        "icon": "fa fa-photo",
+                        "items": [
+                            { "label": "Generic file", "icon": "fa fa-file" },
+                            { "label": "Archive", "icon": "fa fa-file-archive-o" },
+                            { "label": "Audio", "icon": "fa fa-file-audio-o" },
+                            { "label": "Code", "icon": "fa fa-file-code-o" },
+                            { "label": "Excel", "icon": "fa fa-file-excel-o" },
+                            { "label": "Image", "icon": "fa fa-file-image-o" },
+                            { "label": "Pdf", "icon": "fa fa-file-pdf-o" },
+                            { "label": "Powerpoint", "icon": "fa fa-file-powerpoint-o" },
+                            { "label": "Text", "icon": "fa fa-file-text-o" },
+                            { "label": "Video", "icon": "fa fa-file-video-o" },
+                            { "label": "Word", "icon": "fa fa-file-word-o" }
+                        ]
                     },
                     {
                         "label": "Credits",
-                        "icon": "fa fa-google-wallet"
+                        "icon": "fa fa-google-wallet",
+                        "items": [
+                            { "label": "Amex", "icon": "fa fa-cc-amex" },
+                            { "label": "Diners club", "icon": "fa fa-cc-diners-club" },
+                            { "label": "Discover", "icon": "fa fa-cc-discover" },
+                            { "label": "Jcb", "icon": "fa fa-cc-jcb" },
+                            { "label": "Mastercard", "icon": "fa fa-cc-mastercard" },
+                            { "label": "Paypal", "icon": "fa fa-cc-paypal" },
+                            { "label": "Stripe", "icon": "fa fa-cc-stripe" },
+                            { "label": "Visa", "icon": "fa fa-cc-visa" },
+                            { "label": "Credit card", "icon": "fa fa-credit-card" }
+                        ]
                     }
                 ]
             };
@@ -181,12 +233,12 @@
              * Left-docked menu
              */
             var options_left = {
-                menu: menu,
                 dock: 'left'
             };
 
             $('#mp-menu-left').auCMenu(options_left);
             var api_left = $('#mp-menu-left').data('auCMenu');
+            api_left.load(menu);
 
             $('#mp-menu-left').on('selected', function (e, args) {
                 console.log('selected: ' + args.item);
@@ -202,12 +254,12 @@
              * Right-docked menu
              */
             var options_right = {
-                menu: menu,
                 dock: 'right'
             };
 
             $('#mp-menu-right').auCMenu(options_right);
             var api_right = $('#mp-menu-right').data('auCMenu');
+            api_right.load(menu);
 
             $('#trigger-right').on('click', function (e) {
                 e.stopPropagation();
@@ -218,6 +270,13 @@
             /**
              * Misc
              */
+            $(window).on('resize', function () {
+                var w = $(window).width();
+                var h = $(window).height() - 50;
+                api_left.resize(w, h);
+                api_right.resize(w, h);
+            });
+
             $(document).on('click', function () {
                 api_left.close();
             });

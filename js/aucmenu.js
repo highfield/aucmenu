@@ -32,6 +32,11 @@
         var me = {};
         var options = $.extend(true, {}, $.fn[NAME].options, opts);
 
+        container.addClass('mp-menu mp-' + options.type).empty();
+
+        var clientWidth = $(window).width();
+        var clientHeight = $(window).height();
+
         //array for controllers
         var levels = [];
         var items = [];
@@ -113,22 +118,56 @@
                     ci.reset();
                 });
 
+                var aw = options.width;
                 if (open) {
+                    var cl;
                     for (var i = 0; i <= z; i++) {
                         var aa = a[i];
-                        levels[aa.il].set(z - i);
+                        cl = levels[aa.il];
+                        cl.set(z - i);
                         if (aa.ii >= 0) {
                             items[aa.ii].set();
                         }
                     }
+                    aw = Math.min(aw, clientWidth - options.levelSpacing * (z + 1));
+
+                    var li = cl.elem.find('ul li'), outer = li.children();
+                    var li_css = {
+                        float: '',
+                        width: ''
+                    };
+
+                    var ah = container.height() - 120;
+                    if (ah / 60 >= cl.items_count) {
+                        outer.removeClass('mp-menu-item-compact');
+                    }
+                    else {
+                        outer.addClass('mp-menu-item-compact');
+                        li_css.float = 'left';
+                        if (ah / 60 >= cl.items_count / 2) {
+                            li_css.width = aw / 2;
+                        }
+                        else if (ah / 60 >= cl.items_count / 3) {
+                            li_css.width = aw / 3;
+                        }
+                        else {
+                            li_css.width = aw / 4;
+                        }
+                    }
+                    li.css(li_css);
                 }
 
                 levels.forEach(function (cl) {
-                    cl.run();
+                    cl.run(aw);
                 });
                 items.forEach(function (ci) {
                     ci.run();
                 });
+
+                container.css({
+                    width: aw
+                });
+                container.css('transform', 'translate3d(' + (options.dock === 'left' ? -aw : aw) + 'px,0,0)');
             }
 
             return p;
@@ -148,6 +187,7 @@
             $('<i>', { 'aria-hidden': true }).addClass(model.icon).appendTo(h2);
 
             var clev = CtlLevel(outer, parent_level_ix);
+            clev.items_count = model.items.length;
             levels.push(clev);
 
             if (level_ix) {
@@ -177,19 +217,19 @@
                     var citem = CtlItem(li, child, level_ix, parent_item_ix);
                     items.push(citem);
 
-                    var div = $('<div>').appendTo(li);
+                    var div_outer = $('<div>').appendTo(li);
+                    var div_inner = $('<span>').appendTo(div_outer);
                     var chevron = $('<i>', { 'aria-hidden': true }).addClass('fa fa-chevron-left').css({
                         margin: '0px 15px',
                         'font-size': '0.7em',
                         opacity: 0
-                    }).appendTo(div);
+                    }).appendTo(div_inner);
                     var a = $('<a>').attr('href', '#').text(child.label).css({
-                        //position: 'absolute',
-                        //left: 40
-                    }).appendTo(div);
+                    }).appendTo(div_inner);
+
                     $('<i>', { 'aria-hidden': true }).addClass(child.icon).css({
                         margin: '0px 15px'
-                    }).appendTo(div);
+                    }).appendTo(div_outer);
 
                     var child_level_ix = scan(child, level_ix, item_ix);
                     if (child_level_ix >= 0) {
@@ -264,6 +304,7 @@
             var c = {
                 elem: elem,
                 parent_ix: parent_ix,
+                items_count: 0,
                 children: []
             };
 
@@ -276,9 +317,9 @@
                 nesting = ns;
             }
 
-            c.run = function () {
+            c.run = function (level_width) {
                 if (state) {
-                    var offset = options.width;
+                    var offset = level_width;
                     if (options.type === 'overlap') offset += nesting * options.levelSpacing;
                     if (options.dock === 'right') offset = -offset;
                     elem.addClass('mp-level-open');
@@ -300,21 +341,21 @@
         }
 
 
-        me.init = function () {
-            container.addClass('mp-menu mp-' + options.type).css({
-                width: options.width
-            });
-            switch (options.dock) {
-                case 'left':
-                    container.css('transform', 'translate3d(-' + options.width + 'px,0,0)');
-                    break;
-
-                case 'right':
-                    container.css('transform', 'translate3d(' + options.width + 'px,0,0)');
-                    break;
-            }
-            scan(options.menu, -1, -1);
+        me.load = function (model) {
+            container.empty();
+            levels.length = items.length = 0;
+            scan(model, -1, -1);
             me.close();
+            path.update();
+        }
+
+
+        me.resize = function (w, h) {
+            clientWidth = w;
+            clientHeight = h;
+            if (path.isOpen()) {
+                path.update();
+            }
         }
 
 
@@ -354,14 +395,13 @@
     $.fn[NAME] = function (options) {
         return this.each(function () {
             var obj = Plugin($(this), options);
-            obj.init();
             $(this).data(NAME, obj);
         });
     }
 
 
     $.fn[NAME].options = {
-        width: 280,
+        width: 300,
         type: 'overlap', // overlap || cover
         levelSpacing: 40,
         backLabel: 'Back'

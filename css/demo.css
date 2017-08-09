@@ -31,16 +31,6 @@ body {
     overflow:hidden;
 }
 
-/*a {
-    text-decoration: none;
-    color: #f7f7f7;
-    outline: none;
-}*/
-
-/*a:hover, a:focus {
-    color: #fff;
-    outline: none;
-}*/
 
 .scroller {
     overflow-y: scroll;
@@ -54,29 +44,12 @@ body {
 .container {
     position: absolute;
     overflow: auto;
-    /*background: #34495e;*/
     top: 50px;
     bottom: 0px;
     left: 0px;
     right: 0px;
 }
 
-/*.menu-trigger {
-    position: relative;
-    padding-left: 60px;
-    font-size: 0.9em;
-}*/
-
-    /*.menu-trigger:before {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 0;
-        width: 40px;
-        height: 6px;
-        background: #fff;
-        box-shadow: 0 6px #34495e, 0 12px #fff, 0 18px #34495e, 0 24px #fff;
-    }*/
 
     .navbar{
         position: fixed;
@@ -93,11 +66,6 @@ body {
             outline: none;
         }
 
-    .navbar-header{
-        float:left;
-    }
-
-
 
 .mp-pusher {
     position: relative;
@@ -112,10 +80,6 @@ body {
     left: 0px;
     bottom: 0px;
     z-index: 1;
-    /*width: 300px;
-    height: 100%;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);*/
 }
 
 #mp-menu-right {
@@ -124,10 +88,6 @@ body {
     right: 0px;
     bottom: 0px;
     z-index: 1;
-    /*width: 300px;
-    height: 100%;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);*/
 }
 
 
