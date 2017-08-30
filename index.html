@@ -50,6 +50,7 @@
         </div>
     </div>
 
+    <div id="page-overlay" style="display:none"></div>
 
     <nav id="mp-menu-left">
     </nav>
@@ -236,17 +237,21 @@
                 dock: 'left'
             };
 
-            $('#mp-menu-left').auCMenu(options_left);
-            var api_left = $('#mp-menu-left').data('auCMenu');
+            var menu_left = $('#mp-menu-left');
+            menu_left.auCMenu(options_left);
+            var api_left = menu_left.data('auCMenu');
             api_left.load(menu);
 
-            $('#mp-menu-left').on('selected', function (e, args) {
+            menu_left.on('selected', function (e, args) {
                 console.log('selected: ' + args.item);
+            }).on('open close', function (e) {
+                setTimeout(updateOverlay, 10);
             });
 
             $('#trigger-left').on('click', function (e) {
                 e.stopPropagation();
-                api_left.open();
+                api_left.toggle();
+                api_right.close();
             });
 
 
@@ -254,16 +259,25 @@
              * Right-docked menu
              */
             var options_right = {
-                dock: 'right'
+                dock: 'right',
+                backColor: 'whitesmoke',
+                textColor: 'dimgray',
+                backColorSelected: 'lemonchiffon'
             };
 
-            $('#mp-menu-right').auCMenu(options_right);
-            var api_right = $('#mp-menu-right').data('auCMenu');
+            var menu_right = $('#mp-menu-right');
+            menu_right.auCMenu(options_right);
+            var api_right = menu_right.data('auCMenu');
             api_right.load(menu);
+
+            menu_right.on('open close', function (e) {
+                setTimeout(updateOverlay, 10);
+            });
 
             $('#trigger-right').on('click', function (e) {
                 e.stopPropagation();
                 api_right.toggle();
+                api_left.close();
             });
 
 
@@ -277,9 +291,15 @@
                 api_right.resize(w, h);
             });
 
-            $(document).on('click', function () {
+            $('#page-overlay').on('click', function () {
                 api_left.close();
             });
+
+            function updateOverlay() {
+                var show = api_left.isOpen() || api_right.isOpen();
+                var ovl = $('#page-overlay');
+                show ? ovl.show() : ovl.hide();
+            }
 
             $('#btn-reset').on('click', function () {
                 api_left.reset();

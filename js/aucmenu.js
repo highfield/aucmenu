@@ -28,11 +28,27 @@
 (function ($) {
     'use strict';
 
+    function validateOptions(val, set) {
+        var ix = set.indexOf(val);
+        return ix >= 0 ? val : set[0];
+    }
+
+
     function Plugin(container, opts) {
         var me = {};
         var options = $.extend(true, {}, $.fn[NAME].options, opts);
 
-        container.addClass('mp-menu mp-' + options.type).empty();
+        var type = validateOptions(options.type, ['overlap']);
+        var dock = validateOptions(options.dock, ['right', 'left']);
+
+        container
+            .addClass('mp-menu mp-' + type)
+            .addClass('mp-dock-' + dock).
+            css({
+                background: options.backColor,
+                color: options.textColor
+            })
+            .empty();
 
         var clientWidth = $(window).width();
         var clientHeight = $(window).height();
@@ -167,7 +183,7 @@
                 container.css({
                     width: aw
                 });
-                container.css('transform', 'translate3d(' + (options.dock === 'left' ? -aw : aw) + 'px,0,0)');
+                container.css('transform', 'translate3d(' + (dock === 'left' ? -aw : aw) + 'px,0,0)');
             }
 
             return p;
@@ -181,7 +197,15 @@
             }
 
             var level_ix = levels.length;
-            var outer = $('<div>').addClass('mp-level').data('il', level_ix).appendTo(container);
+            var outer = $('<div>')
+                .addClass('mp-level')
+                .css({
+                    background: options.backColor,
+                    color: options.textColor
+                })
+                .data('il', level_ix)
+                .appendTo(container);
+
             var h2 = $('<h2>').appendTo(outer);
             $('<span>').text(model.label).appendTo(h2);
             $('<i>', { 'aria-hidden': true }).addClass(model.icon).appendTo(h2);
@@ -191,14 +215,24 @@
             levels.push(clev);
 
             if (level_ix) {
-                var cback = $('<div>').addClass('mp-back').appendTo(outer);
+                var cback = $('<div>')
+                    .addClass('mp-back')
+                    .addClass('mp-back-' + dock)
+                    .appendTo(outer);
+
                 var back = $('<a>')
                     .attr('href', '#')
                     .data('il', parent_level_ix)
                     .text(options.backLabel)
+                    .css({
+                        color: options.textColor
+                    })
                     .appendTo(cback);
 
-                $('<i>', { 'aria-hidden': true }).addClass('fa fa-chevron-right mp-back-icon').appendTo(cback);
+                $('<i>', { 'aria-hidden': true })
+                    .addClass('fa fa-chevron-' + (dock === 'left' ? 'right' : 'left'))
+                    .addClass('mp-back-icon')
+                    .appendTo(cback);
 
                 cback.on('click', function (e) {
                     e.preventDefault();
@@ -219,13 +253,21 @@
 
                     var div_outer = $('<div>').appendTo(li);
                     var div_inner = $('<span>').appendTo(div_outer);
-                    var chevron = $('<i>', { 'aria-hidden': true }).addClass('fa fa-chevron-left').css({
-                        margin: '0px 15px',
-                        'font-size': '0.7em',
-                        opacity: 0
-                    }).appendTo(div_inner);
-                    var a = $('<a>').attr('href', '#').text(child.label).css({
-                    }).appendTo(div_inner);
+                    var chevron = $('<i>', { 'aria-hidden': true })
+                        .addClass('fa fa-chevron-' + dock)
+                        .css({
+                            margin: '0px 15px',
+                            'font-size': '0.7em',
+                            opacity: 0
+                        }).appendTo(div_inner);
+
+                    var a = $('<a>')
+                        .attr('href', '#')
+                        .text(child.label)
+                        .css({
+                            color: options.textColor
+                        })
+                        .appendTo(div_inner);
 
                     $('<i>', { 'aria-hidden': true }).addClass(child.icon).css({
                         margin: '0px 15px'
@@ -287,10 +329,18 @@
 
             c.run = function () {
                 if (state) {
-                    elem.addClass('mp-item-selected');
+                    elem
+                        .addClass('mp-item-selected')
+                        .css({
+                            background: options.backColorSelected
+                        });
                 }
                 else {
-                    elem.removeClass('mp-item-selected');
+                    elem
+                        .removeClass('mp-item-selected')
+                        .css({
+                            background: ''
+                        });
                 }
             }
 
@@ -320,8 +370,8 @@
             c.run = function (level_width) {
                 if (state) {
                     var offset = level_width;
-                    if (options.type === 'overlap') offset += nesting * options.levelSpacing;
-                    if (options.dock === 'right') offset = -offset;
+                    if (type === 'overlap') offset += nesting * options.levelSpacing;
+                    if (dock === 'right') offset = -offset;
                     elem.addClass('mp-level-open');
                     elem.css('transform', 'translate3d(' + offset + 'px,0,0)');
                 }
@@ -369,11 +419,13 @@
 
         me.open = function (id) {
             path.open(id);
+            container.trigger('open');
         }
 
 
         me.close = function () {
             path.close();
+            container.trigger('close');
         }
 
 
@@ -404,7 +456,10 @@
         width: 300,
         type: 'overlap', // overlap || cover
         levelSpacing: 40,
-        backLabel: 'Back'
+        backLabel: 'Back',
+        backColor: '#336ca6',
+        textColor: '#f7f7f7',
+        backColorSelected: 'cornflowerblue'
     }
 
 })(jQuery);
