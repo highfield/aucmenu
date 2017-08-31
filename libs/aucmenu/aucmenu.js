@@ -50,6 +50,7 @@
             })
             .empty();
         //container.css('background', 'pink');
+
         container.on('touchstart', function (e) {
             e.stopPropagation();
         }).on('touchmove', function (e) {
