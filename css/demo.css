@@ -50,7 +50,8 @@ body {
 
 
 .navbar {
-    position: fixed;
+    /*position: fixed;*/
+    position: absolute;
     right: 0px;
     left: 0px;
     z-index: 1030;
@@ -90,12 +91,14 @@ body {
 
 #page-overlay {
     background: rgba(0,0,0,0.5);
-    position: fixed;
+    /*position: fixed;*/
+    position: absolute;
     left: 0px;
     top: 50px;
     right: 0px;
     bottom: 0px;
     z-index: 999;
+    /*-webkit-overflow-scrolling: touch;*/
 }
 
 

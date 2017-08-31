@@ -49,6 +49,13 @@
                 color: options.textColor
             })
             .empty();
+        //container.css('background', 'pink');
+        container.on('touchstart', function (e) {
+            e.stopPropagation();
+        }).on('touchmove', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
 
         var clientWidth = $(window).width();
         var clientHeight = $(window).height();
@@ -180,10 +187,39 @@
                     ci.run();
                 });
 
-                container.css({
-                    width: aw
-                });
-                container.css('transform', 'translate3d(' + (dock === 'left' ? -aw : aw) + 'px,0,0)');
+                if (dock === 'left') {
+                    if (open) {
+                        container.css({
+                            width: aw
+                        });
+                        container.css('transform', 'translate3d(' + (-aw) + 'px,0,0)');
+                    }
+                    else {
+                        setTimeout(function () {
+                            container.css('transform', 'translate3d(0,0,0)');
+                            container.css({
+                                width: 0
+                            });
+                        }, 300);
+                    }
+                }
+                else if (dock === 'right') {
+                    if (open) {
+                        container.css({
+                            width: aw
+                        });
+                        container.css('transform', 'translate3d(' + (aw) + 'px,0,0)');
+                    }
+                    else {
+                        container.css('transform', 'translate3d(' + (aw) + 'px,0,0)');
+                        setTimeout(function () {
+                            container.css('transform', 'translate3d(0,0,0)');
+                            container.css({
+                                width: 0
+                            });
+                        }, 300);
+                    }
+                }
             }
 
             return p;
@@ -284,15 +320,17 @@
                         e.preventDefault();
                         e.stopPropagation();
                         var ii = $(this).data('ii');
-                        path.peek().ii = ii;
                         var ci = items[ii];
-                        if (ci.L) {
-                            path.push({ il: ci.L, ii: -1 });
+                        if (levels[ci.level_ix].get()) {
+                            path.peek().ii = ii;
+                            if (ci.L) {
+                                path.push({ il: ci.L, ii: -1 });
+                            }
+                            else {
+                                container.trigger('selected', { item: ci });
+                            }
+                            path.update();
                         }
-                        else {
-                            container.trigger('selected', { item: ci });
-                        }
-                        path.update();
                     });
                 });
             }
@@ -301,8 +339,10 @@
                 e.stopPropagation();
                 e.preventDefault();
                 var il = $(this).data('il');
-                path.trim(il);
-                path.update();
+                if (levels[il].get()) {
+                    path.trim(il);
+                    path.update();
+                }
             });
 
             return level_ix;
@@ -323,6 +363,7 @@
                 state = 0;
             }
 
+            c.get = function () { return state; }
             c.set = function () {
                 state = 1;
             }
@@ -362,6 +403,7 @@
                 state = nesting = 0;
             }
 
+            c.get = function () { return state; }
             c.set = function (ns) {
                 state = 1;
                 nesting = ns;
@@ -372,12 +414,22 @@
                     var offset = level_width;
                     if (type === 'overlap') offset += nesting * options.levelSpacing;
                     if (dock === 'right') offset = -offset;
-                    elem.addClass('mp-level-open');
-                    elem.css('transform', 'translate3d(' + offset + 'px,0,0)');
+                    elem
+                        .addClass('mp-level-open')
+                        .css({
+                            transform: 'translate3d(' + offset + 'px,0,0)',
+                            opacity: 1
+                        });
                 }
                 else {
-                    elem.css('transform', 'translate3d(0,0,0)');
-                    elem.removeClass('mp-level-open');
+                    elem
+                        .removeClass('mp-level-open')
+                        .css({
+                            transform: 'translate3d(0,0,0)'
+                        });
+                    setTimeout(function () {
+                        elem.css('opacity', 0);
+                    }, 300);
                 }
                 if (state && nesting) {
                     elem.addClass('mp-level-overlay');
