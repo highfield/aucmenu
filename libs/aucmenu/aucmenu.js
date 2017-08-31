@@ -73,9 +73,16 @@
         }
 
 
+        function indexOfFirst(pred) {
+            var i = items.length;
+            while (--i >= 0 && !pred(items[i].model));
+            return i;
+        }
+
+
         //path controller
         var path = (function () {
-            var p = {}, a = [], z = -1, open = false;
+            var p = {}, a = [], z = -1, d = [], open = false;
 
             p.push = function (o) {
                 a.push(o);
@@ -95,31 +102,58 @@
                 a.length = z + 1;
             }
 
-            p.set = function (v) {
-                //anyone needs?
+            p.set = function (x) {
+                d.length = 0;
+                var ix = -1;
+                if ($.isFunction(x)) {
+                    ix = indexOfFirst(x);
+                }
+                else if (typeof x === 'string') {
+                    ix = indexOfItem(x);
+                }
+                while (ix >= 0) {
+                    var ci = items[ix];
+                    d.push({ ii: ix, il: ci.level_ix });
+                    ix = ci.parent_ix;
+                }
+                d.reverse();
             }
 
             p.clear = function () {
                 if (open) return;
                 a.length = 0;
                 z = -1;
+                d.length = 0;
             }
 
             p.isOpen = function () { return open; }
 
-            p.open = function (id) {
+            p.open = function (x) {
                 if (open) return;
                 open = true;
-                if (id != null) {
+                if (x) {
                     a.length = 0;
                     z = -1;
-                    var ix = indexOfItem(id);
+                    var ix = -1;
+                    if ($.isFunction(x)) {
+                        ix = indexOfFirst(x);
+                    }
+                    else if (typeof x === 'string') {
+                        ix = indexOfItem(x);
+                    }
                     while (ix >= 0) {
                         var ci = items[ix];
                         p.push({ ii: ix, il: ci.level_ix });
                         ix = ci.parent_ix;
                     }
                     a.reverse();
+                }
+                else if (d.length) {
+                    a.length = 0;
+                    for (var i = 0; i < d.length; i++) {
+                        a.push(d[i]);
+                    }
+                    z = a.length - 1;
                 }
                 if (a.length === 0) {
                     a.push({ il: 0, ii: -1 });
@@ -445,11 +479,14 @@
 
 
         me.load = function (model) {
-            container.empty();
+            container.empty().hide();
             levels.length = items.length = 0;
             scan(model, -1, -1);
             me.close();
             path.update();
+            setTimeout(function () {
+                container.show();
+            }, 500);
         }
 
 
@@ -470,8 +507,12 @@
             path.clear();
         }
 
-        me.open = function (id) {
-            path.open(id);
+        me.set = function (x) {
+            path.set(x);
+        }
+
+        me.open = function (x) {
+            path.open(x);
             container.trigger('open');
         }
 

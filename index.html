@@ -46,8 +46,10 @@
                 <p>The next level can optionally overlap or cover the previous one.</p>
             </div>
             <div class="block block-60">
+                <button id="btn-set">Set default</button>
                 <button id="btn-reset">Reset</button>
-                <button id="btn-open-item">Open "Scientific American"</button>
+                <button id="btn-open1-item">Open "Scientific American"</button>
+                <button id="btn-open2-item">Open "Gigantic LED"</button>
             </div>
             <div class="block block-60">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sagittis, diam quis hendrerit bibendum, augue massa tempor neque, et dapibus risus ligula tempor nulla. Donec accumsan tortor eget lorem venenatis, ac tincidunt eros volutpat. Mauris tempus libero metus, in posuere velit scelerisque vel. Donec dapibus dolor eu tortor interdum tincidunt. Donec dignissim nisl eleifend mauris efficitur dignissim. Nullam bibendum felis a nibh maximus efficitur. Donec commodo est at maximus facilisis. Sed risus dui, ultricies non accumsan sit amet, volutpat sit amet dui. Sed blandit tempus feugiat. Aliquam quis felis at eros vehicula viverra in eget ante. Phasellus tempus blandit turpis, sed condimentum nisl rutrum eget. Pellentesque suscipit sem accumsan nunc dapibus, id volutpat eros molestie. Proin dolor nisi, sodales quis tempor sagittis, sodales non lorem. Sed porta et nisl vel scelerisque.</p>
@@ -303,14 +305,25 @@
                 viewportLocker.enable(show);
             }
 
+            $('#btn-set').on('click', function () {
+                api_left.set('sci_am');
+            });
+
             $('#btn-reset').on('click', function () {
                 api_left.reset();
                 api_right.reset();
             });
 
-            $('#btn-open-item').on('click', function (e) {
+            $('#btn-open1-item').on('click', function (e) {
                 e.stopPropagation();
                 api_left.open('sci_am');
+            });
+
+            $('#btn-open2-item').on('click', function (e) {
+                e.stopPropagation();
+                api_left.open(function (m) {
+                    return m.label === "Gigantic LED";
+                });
             });
         });
 
