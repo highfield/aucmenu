@@ -231,7 +231,7 @@
                     }
                     else {
                         setTimeout(function () {
-                            container.css('transform', 'translate3d(30,0,0)');
+                            //container.css('transform', 'translate3d(30px,0,0)');
                             container.css({
                                 width: 0
                             });
@@ -486,6 +486,7 @@
             path.update();
             setTimeout(function () {
                 container.show();
+                container.css('transform', 'translate3d(30px,0,0)');
             }, 500);
         }
 
